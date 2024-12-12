@@ -1,6 +1,7 @@
 package com.practice.batch;
 
 import com.practice.batch.batch.BatchStatus;
+import com.practice.batch.batch.Job;
 import com.practice.batch.batch.JobExecution;
 import com.practice.batch.customer.Customer;
 import com.practice.batch.customer.CustomerRepository;
@@ -22,7 +23,7 @@ class DormantBatchJobTest {
     private CustomerRepository customerRepository;
 
     @Autowired
-    private DormantBatchJob dormantBatchJob;
+    private Job dormantBatchJob;
 
     @BeforeEach
     public void setUp() {
@@ -109,10 +110,10 @@ class DormantBatchJobTest {
     @DisplayName("배치가 실패하면 BatchStatus는 FAILED를 반환해야 한다")
     void test4() {
         // given
-        final DormantBatchJob dormantBatchJob = new DormantBatchJob(null);
+        final Job job = new Job(null, null);
 
         // when
-        final JobExecution result = dormantBatchJob.execute();
+        final JobExecution result = job.execute();
 
         // then
         assertThat(result.getStatus()).isEqualTo(BatchStatus.FAILED);
